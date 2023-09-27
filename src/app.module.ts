@@ -1,10 +1,48 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { ConfigModule, ConfigService, ConfigType } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { AppConfig, Environment } from './config/app';
+import { ConfigKey } from './config/common';
+import { DatabaseConfig } from './config/database';
+import { UrlModule } from './url/url.module';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [AppConfig, DatabaseConfig],
+      envFilePath: [
+        `${__dirname}/production.env`,
+        `${__dirname}/development.env`,
+        `${__dirname}/.env`,
+      ],
+    }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => {
+        const appConfig = configService.get<ConfigType<typeof AppConfig>>(
+          ConfigKey.App,
+        );
+        const dbConfig = configService.get<ConfigType<typeof DatabaseConfig>>(
+          ConfigKey.Database,
+        );
+        if (dbConfig?.sqlite) {
+          return {
+            type: 'sqlite',
+            database: `${__dirname}/${dbConfig.sqlite.file}`,
+            entities: [`${__dirname}/**/*.entity{.ts,.js}`],
+            synchronize: appConfig?.environment != Environment.Production,
+          };
+        } else {
+          return {};
+        }
+      },
+    }),
+    UrlModule,
+  ],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

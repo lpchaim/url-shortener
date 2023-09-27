@@ -11,7 +11,7 @@ mkShell {
     node2nix
     nodejs
     nushell
-    nodePackages.pnpm
+    sqlite
   ];
   shellHook = ''
     exec nu
