@@ -31,7 +31,6 @@ $ nix-shell
 ### Others
 Manually install the requirements
 - NodeJS 18.x
-- PNPM
 
 ## Installation
 

@@ -9,11 +9,8 @@ commands: # a reusable command with parameters
     steps:
       - checkout
       - run:
-          name: "Install pnpm"
-          command: "npm install pnpm"
-      - run:
           name: "Install dependencies"
-          command: "pnpm install --no-frozen-lockfile"
+          command: "npm install"
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/configuration-reference/#jobs
@@ -29,7 +26,7 @@ jobs:
       - setup
       - run:
           name: "Run build"
-          command: "pnpm run build"
+          command: "npm run build"
   test:
     docker:
       - image: cimg/node:18.17.1
@@ -37,10 +34,10 @@ jobs:
       - setup
       - run:
           name: "Run unit tests"
-          command: "pnpm run test"
+          command: "npm run test"
       - run:
           name: "Run e2e tests"
-          command: "pnpm run test:e2e"
+          command: "npm run test:e2e"
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
