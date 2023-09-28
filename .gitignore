@@ -6,7 +6,8 @@
 /src/database/*
 
 # Environment
-/src/.env
+/src/*.env*
+!/src/.env.example
 
 # Logs
 logs

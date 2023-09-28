@@ -30,6 +30,9 @@ jobs:
   test:
     docker:
       - image: cimg/node:18.17.1
+    environment:
+      ENVIRONMENT: development
+      DATABASE_SQLITE_FILE: ":memory:"
     steps:
       - setup
       - run:

@@ -13,8 +13,8 @@ import { UrlModule } from './url/url.module';
       isGlobal: true,
       load: [AppConfig, DatabaseConfig],
       envFilePath: [
-        `${__dirname}/production.env`,
-        `${__dirname}/development.env`,
+        `${__dirname}/.env.production`,
+        `${__dirname}/.env.development`,
         `${__dirname}/.env`,
       ],
     }),
@@ -31,7 +31,10 @@ import { UrlModule } from './url/url.module';
         if (dbConfig?.sqlite) {
           return {
             type: 'sqlite',
-            database: `${__dirname}/${dbConfig.sqlite.file}`,
+            database:
+              dbConfig.sqlite.file !== ':memory:'
+                ? `${__dirname}/${dbConfig.sqlite.file}`
+                : dbConfig.sqlite.file,
             entities: [`${__dirname}/**/*.entity{.ts,.js}`],
             synchronize: appConfig?.environment != Environment.Production,
           };
