@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid';
 import {
   Entity,
   Column,
@@ -30,6 +31,6 @@ export class Url {
 
   @BeforeInsert()
   populateMetadata() {
-    this.id = String(Math.random()).substring(2);
+    this.id = nanoid();
   }
 }
