@@ -4,4 +4,11 @@
 			"path": ".."
 		}
 	],
+	"settings": {
+		"files.associations": {
+			"*.yml": "yaml",
+			".env*": "properties",
+		},
+		"typescript.preferences.importModuleSpecifier": "shortest",
+	},
 }
