@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { nanoid } from 'nanoid';
 import { Repository } from 'typeorm';
 
 import { CreateUrlDto } from './dto/create-url.dto';
@@ -13,8 +14,15 @@ export class UrlService {
   ) {}
 
   async create(createUrlDto: CreateUrlDto) {
-    const url = this.urlRepository.create(createUrlDto);
-    await this.urlRepository.save(url);
+    let url = this.urlRepository.create(createUrlDto);
+
+    let id: string;
+    do {
+      id = this.generateId();
+    } while (await this.findOne(id));
+    url.id = id;
+
+    url = await this.urlRepository.save(url);
     return url;
   }
 
@@ -24,5 +32,15 @@ export class UrlService {
 
   async findOne(id: string) {
     return this.urlRepository.findOne({ where: { id } });
+  }
+
+  private generateId(): string {
+    return nanoid(8);
+  }
+
+  async incrementTimesVisited(url: Url) {
+    url.timesVisited += 1;
+    await this.urlRepository.save(url);
+    return url;
   }
 }

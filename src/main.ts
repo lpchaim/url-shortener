@@ -10,8 +10,8 @@ async function bootstrap() {
     .setTitle('URL Shortener')
     .setDescription('A simple URL shortening service')
     .setVersion('0.0.1')
-    .addTag('url')
-    .addTag('shortener')
+    .setLicense('GPLv3', 'https://www.gnu.org/licenses/gpl-3.0.html')
+    .addTag('url', 'URL endpoints')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

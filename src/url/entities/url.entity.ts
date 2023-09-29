@@ -1,9 +1,7 @@
-import { nanoid } from 'nanoid';
 import {
   Entity,
   Column,
   PrimaryColumn,
-  BeforeInsert,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -28,9 +26,4 @@ export class Url {
 
   @UpdateDateColumn()
   updatedDate: Date;
-
-  @BeforeInsert()
-  populateMetadata() {
-    this.id = nanoid();
-  }
 }

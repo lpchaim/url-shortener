@@ -14,8 +14,8 @@ A project meant to develop my NestJS skills, as well as practice real world impl
 
 ### Goals
 - [ ] Minimally viable simple URL shortening API
-  - [ ] Create short URLs
-  - [ ] Redirect shortened URL to the original
+  - [x] Create short URLs
+  - [x] Redirect shortened URL to the original
   - [ ] Simple statistics about each shortened URL
 - [x] CI - Build, Tests
 - [ ] CD - Deployment
@@ -35,33 +35,33 @@ Manually install the requirements
 ## Installation
 
 ```bash
-$ pnpm install
+$ npm install
 ```
 
 ## Running the app
 
 ```bash
 # development
-$ pnpm run start
+$ npm run start
 
 # watch mode
-$ pnpm run start:dev
+$ npm run start:dev
 
 # production mode
-$ pnpm run start:prod
+$ npm run start:prod
 ```
 
 ## Test
 
 ```bash
 # unit tests
-$ pnpm run test
+$ npm run test
 
 # e2e tests
-$ pnpm run test:e2e
+$ npm run test:e2e
 
 # test coverage
-$ pnpm run test:cov
+$ npm run test:cov
 ```
 
 ## License
