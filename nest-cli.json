@@ -9,13 +9,14 @@
         "name": "@nestjs/swagger",
         "options": {
           "classValidatorShim": true,
-          "introspectComments": true
+          "introspectComments": false
         }
       }
     ],
     "assets": [
       {"include": "database", "exclude": ".*"},
-      {"include": "*.env"}
+      {"include": ".env"},
+      {"include": ".env.*", "exclude": ".env.*.example"}
     ],
     "watchAssets": true
   }

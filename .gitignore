@@ -7,7 +7,7 @@
 
 # Environment
 /src/*.env*
-!/src/.env.example
+!/src/.env*.example
 
 # Logs
 logs
